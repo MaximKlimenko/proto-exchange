@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package exchange;
 
-option go_package = "github.com/proto-exchange/exchange_grpc";
+option go_package = "github.com/MaximKlimenko/proto-exchange";
 
 // Определение сервиса
 service ExchangeService {
     // Получение курсов обмена всех валют
-    rpc GetExchangeRates(Empty) returns (ExchangeRatesResponse);
+    rpc GetExchangeRates(CurrencyRequest) returns (ExchangeRatesResponse);
     
     // Получение курса обмена для конкретной валюты
     rpc GetExchangeRateForCurrency(CurrencyRequest) returns (ExchangeRateResponse);
@@ -23,12 +23,12 @@ message CurrencyRequest {
 message ExchangeRateResponse {
     string from_currency = 1;
     string to_currency = 2;
-    float rate = 3;
+    float64 rate = 3;
 }
 
 // Ответ с курсами обмена всех валют
 message ExchangeRatesResponse {
-    map<string, float> rates = 1; // ключ: валюта, значение: курс
+    map<string, float64> rates = 1; // ключ: валюта, значение: курс
 }
 
 // Пустое сообщение
